@@ -23,25 +23,39 @@ const exampleDinosaurData = require("../data/dinosaurs");
  *  //> { Brachiosaurus: 98.43 }
  */
 function getLongestDinosaur(dinosaurs) {
-  let lengthInFeet; //only declaring variable
+  // Variable will hold the converted length in meters to length in feet
+  let lengthInFeet = 0;
+  // variable will hold the length of the longest dino
   let longestDinosaurLength = 0;
+  // will hold the formatted result which is an object 
   let result = {} ;
   
-  
-  for (let i = 0; i < dinosaurs.length; i++) {
-    if (longestDinosaurLength < dinosaurs[i].lengthInMeters) {
-      longestDinosaurLength = dinosaurs[i].lengthInMeters;
+  // loop through dino array
+    for (let i = 0; i < dinosaurs.length; i++) {
+      // check if the current dino length in meters is greater than the current longest dino length
+        if(longestDinosaurLength < dinosaurs[i].lengthInMeters) {
+          longestDinosaurLength = dinosaurs[i].lengthInMeters
+          lengthInFeet = longestDinosaurLength * 3.281 
 
-      lengthInFeet = longestDinosaurLength * 3.281
-
-      result = {[dinosaurs[i].name] : lengthInFeet}
-    }
-  }
-
-  return result;
+          result =  {[dinosaurs[i].name]: lengthInFeet}
+        }
+      }
+      return result;
 }
+    // check if current dino length is greater than the current longest dino length X
 
-console.log(getLongestDinosaur(exampleDinosaurData))
+      // if true, reassign current dino length to longest dino length X
+
+      // convert dino length in meters to feet X
+
+      // update result to be current dino name as key and length in feet as value
+
+    
+  
+  // return the result
+
+
+// console.log(getLongestDinosaur(exampleDinosaurData))
 
 /**
  * getDinosaurDescription()
@@ -63,9 +77,30 @@ console.log(getLongestDinosaur(exampleDinosaurData))
  *  getDinosaurDescription(dinosaurs, "incorrect-id");
  *  //> "A dinosaur with an ID of 'incorrect-id' cannot be found."
  */
-function getDinosaurDescription(dinosaurs, id) {}
+function getDinosaurDescription(dinosaurs, id) {
+  for (let i = 0; i < dinosaurs.length; i++) { //1st loop through objects array called dinosaurs.
 
-//ternary operator
+    if (dinosaurs[i].dinosaurId === id) { // if dino id is found
+
+    let dinoName = dinosaurs[i].name; 
+    let howToSay = dinosaurs[i].pronunciation;
+    let funFact = dinosaurs[i].info;
+    let dinoPeriod = dinosaurs[i].period;
+    let dinomya = dinosaurs[i].mya;
+
+    /* 
+    Destructuring an object
+    const {name, pronunciation, info, period, mya} = dinosaurs[i]
+    */
+
+      return `${dinoName} (${howToSay})\n${funFact} It lived in the ${dinoPeriod} period, over ${dinomya.length === 1 ? dinomya[0] : dinomya[1]} million years ago.`
+    }
+  }
+
+return `A dinosaur with an ID of '${id}' cannot be found.`;
+}
+
+// Look into ternary operators to better understand
 
 /**
  * getDinosaursAliveMya()
@@ -92,7 +127,39 @@ function getDinosaurDescription(dinosaurs, id) {}
  *  getDinosaursAliveMya(dinosaurs, 65, "unknown-key");
  *  //> ["WHQcpcOj0G"]
  */
-function getDinosaursAliveMya(dinosaurs, mya, key) {}
+function getDinosaursAliveMya(dinosaurs, mya, key) {
+  let dinosAliveAtCertainPeriodArr = []; //says to return array therefore I create an array
+  for (let i = 0; i < dinosaurs.length; i++) { //create loop to go through all object in array
+
+   
+    if (dinosaurs[i].mya.length === 2) { //checking to see if the dino was alive btwn the 2 mya yrs
+      if(mya <= dinosaurs[i].mya[0] && mya >= dinosaurs[i].mya[1]) { // if year is less than the first number and greater than the second number
+        //Inside the above block of code, if statement passes then the dino is alive
+        if(dinosaurs[i][key]) { // if above dino that is alive, has a key it passes
+          
+          dinosAliveAtCertainPeriodArr.push(dinosaurs[i][key]) //dino gets pushed into the array of dinos alive.
+        } else {
+          dinosAliveAtCertainPeriodArr.push(dinosaurs[i].dinosaurId) // access the id inside the dinosaurs array of object. Dont need 'return' to push into array.
+        }
+      }
+    }
+
+    if (dinosaurs[i].mya.length === 1) {
+      // console.log(dinosaurs[i].mya[0] - 1);
+      if (mya == dinosaurs[i].mya[0] || mya == dinosaurs[i].mya[0] - 1) { //dino that lived is of that mya or mya - 1 is alive
+        if(dinosaurs[i][key]) { //if dino alive has key
+          dinosAliveAtCertainPeriodArr.push(dinosaurs[i][key])
+          } else {
+            dinosAliveAtCertainPeriodArr.push(dinosaurs[i].dinosaurId)
+          }
+        }
+      }
+    } 
+    console.log(dinosAliveAtCertainPeriodArr)
+    return dinosAliveAtCertainPeriodArr;
+
+  }
+  getDinosaursAliveMya(exampleDinosaurData, 66, "name")
 
 module.exports = {
   getLongestDinosaur,
