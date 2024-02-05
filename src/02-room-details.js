@@ -35,11 +35,12 @@ const exampleRoomData = require("../data/rooms");
 
 
 function getRoomByDinosaurName(dinosaurs, rooms, dinosaurName) {
-  let dinosaurName = "";
   
   for (let i = 0; i < dinosaurs.length; i++) {
     
     if (dinosaurs[i].name === dinosaurName) {
+
+      return dinosaurs[i].dinosaurId;
       
       for(let k = 0; k < rooms.length; k++) {
         
@@ -47,13 +48,15 @@ function getRoomByDinosaurName(dinosaurs, rooms, dinosaurName) {
           
           if (dinoId === rooms[k].roomId) {
             let roomId === rooms[k].name
-            
+
           }
         }
       }
     }
   }
 }
+
+console.log(RoomByDinosaurName(dinosaurs, rooms, "Allosaurus"))
 
 /**
  * getConnectedRoomNamesById()
