@@ -35,28 +35,31 @@ const exampleRoomData = require("../data/rooms");
 
 
 function getRoomByDinosaurName(dinosaurs, rooms, dinosaurName) {
-  
+  let roomId = "";
+  let dinoId = "";
+
   for (let i = 0; i < dinosaurs.length; i++) {
+
+    if (!dinosaurs[i].name) {
     
     if (dinosaurs[i].name === dinosaurName) {
 
-      return dinosaurs[i].dinosaurId;
-      
-      for(let k = 0; k < rooms.length; k++) {
-        
-        if (rooms[k].dinosaurs === dinoId) {
-          
-          if (dinoId === rooms[k].roomId) {
-            let roomId === rooms[k].name
+       dinoId = dinosaurs[i].dinosaurId;
+       break;
 
-          }
-        }
       }
+    }
+  }
+  for(let k = 0; k < rooms.length; k++) {
+    
+    if (rooms[k].dinosaurs.includes(dinoId)) {
+      
+      return rooms[i].name;
     }
   }
 }
 
-console.log(RoomByDinosaurName(dinosaurs, rooms, "Allosaurus"))
+console.log(getRoomByDinosaurName(exampleDinosaurData, exampleRoomData, "Allosaurus"))
 
 /**
  * getConnectedRoomNamesById()
